@@ -214,8 +214,11 @@ func (mr *Master) schedule(phase jobPhase) {
 
 #实际运行
 运行测试:
+
 ![运行测试](img/test.png)
+
 测试结果:
+
 ![测试结果](img/check.png)
 
 
