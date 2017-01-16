@@ -219,6 +219,10 @@ func (mr *Master) schedule(phase jobPhase) {
 ![测试结果](img/check.png)
 
 
+- 测试结果:
+
+![倒排索引结果](img/ii.png)
+
 
 
 
