@@ -32,7 +32,7 @@
 3, 最后按照 KeyValue 里面的Key 进行分区,将内容写入到文件里面，以便于后面的Reduce 过程执行
 
 
-```
+``` go
 
 func doMap( 
 jobName string, // // the name of the MapReduce job
@@ -92,7 +92,7 @@ doReduce 函数在common_reduce.go 里面
 3.遍历读取的KeyValue,并且调用用户的Reduce 方法，将计算的结果继续写入到文件中
 
 
-```
+``` go
     func doReduce(
 	jobName string, // the name of the whole MapReduce job
 	reduceTaskNumber int, // which reduce task this is
@@ -169,7 +169,7 @@ Merge 过程
     2,等待所有的任务完成，然后才结束任务
 这里主要使用了go 语言的一些特性，[Go RPC documentation](https://golang.org/pkg/net/rpc/) 和[Concurrency in Go](https://golang.org/doc/effective_go.html#concurrency)
 
-```
+``` go
 func (mr *Master) schedule(phase jobPhase) {
 	var ntasks int
 	var nios int // number of inputs (for reduce) or outputs (for map)
