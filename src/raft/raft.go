@@ -213,7 +213,6 @@ func (rf *Raft) RequestVote(args RequestVoteArgs, reply *RequestVoteReply) {
 	reply.VoteGranted = false
 	if args.Term < rf.currentTerm {
 		reply.Term = rf.currentTerm
-		//fmt.Printf("%v currentTerm:%v vote reject for:%v term:%v",rf.me,rf.currentTerm,args.CandidateId,args.Term)
 		return
 	}
 	//If RPC request or response contains term T > currentTerm: set currentTerm = T, convert to follower
@@ -559,19 +558,22 @@ func (rf *Raft) broadcastRequestVote() {
 		if i != rf.me && rf.state == CANDIDATE {
 			go func(i int) {
 				var reply RequestVoteReply
-				//fmt.Printf("%v RequestVote to %v\n",rf.me,i)
 				rf.sendRequestVote(i, args, &reply)
 			}(i)
 		}
 	}
 }
 
+/**
+ * Log replication
+ */
 func (rf *Raft) broadcastAppendEntries() {
 	rf.mu.Lock()
 	defer rf.mu.Unlock()
 	N := rf.commitIndex
 	last := rf.getLastIndex()
 	baseIndex := rf.log[0].LogIndex
+	//If there exists an N such that N > commitIndex, a majority of matchIndex[i] ≥ N, and log[N].term == currentTerm: set commitIndex = N
 	for i := rf.commitIndex + 1; i <= last; i++ {
 		num := 1
 		for j := range rf.peers {
