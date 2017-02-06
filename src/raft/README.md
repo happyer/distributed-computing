@@ -55,4 +55,4 @@
 
 ## 下车
 
-源于 MIT，然后用于自己学习，[源码地址](https://github.com/happyer/distributed-computing)。
+源于 MIT，然后用于自己学习，[源码注释地址](https://github.com/happyer/distributed-computing)。
