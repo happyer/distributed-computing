@@ -2,7 +2,7 @@
 
 &emsp;&emsp;MapReduce 是 Google 提出的一个软件架构，用于大规模数据集（大于1TB）的并行运算。简而言之，就是将任务切分成很小的任务然后一个一个区的执行最后汇总，这就像小时候我们老师经常教育我们一样，大事化小，小事化了（瞬间感觉那时候老师好言简意赅啊!!!）思想就这么一个思想，那么按照这个思想在现代软件定义一切的世界里面，我们怎么运用这样的方式来解决海量数据的处理，这篇就告诉你一个这样的一个简单的实现使用 Go 语言。
 
-## 上车了
+## 上车
 
 &emsp;&emsp;简单介绍一下几个概念：
 
@@ -14,7 +14,7 @@
 
 &emsp;&emsp;有了上面找出 10 个好学生的需求的时候，我们来想想怎么去实现它呢，很显然这个需求可能是校长在开会的时候提出来的，那么具体的实现就是每个年级组长是不是要把每个年级排名前 10 的学生找出来，然后年级组长的领导，将这些信息在汇总取出 前 10 的学生咯，那么具体的每个年级怎么做呢？同理，将每个班的前10名学生找出来，然后汇总到年级部门咯。
 
-## 发车了 
+## 发车
 
 &emsp;&emsp;基本概览和思路已经明白了，现在开始构建整个 MapReduce 框架了，首先我们明确一个思想就是，将任务划分成合适的大小，然后对其进行计算，然后将每一步计算的的结果，进行一个汇总合并的过程。那么这两个过程我们先分别定义为Map 和Reduce 过程。
 
@@ -30,14 +30,14 @@
 3. 最后按照 KeyValue 里面的 Key 进行分区，将内容写入到文件里面，以便于后面的 Reduce 过程执行；
 
 ``` go
-func doMap( 
-jobName string, // // the name of the MapReduce job
-mapTaskNumber int, // which map task this is
-inFile string,
-nReduce int, // the number of reduce task that will be run 
-mapF func(file string, contents string) []KeyValue,
+func doMap(
+	jobName string, // // the name of the MapReduce job
+	mapTaskNumber int, // which map task this is
+	inFile string,
+	nReduce int, // the number of reduce task that will be run
+	mapF func(file string, contents string) []KeyValue,
 ) {
-	
+
 	//setp 1 read file
 	contents, err := ioutil.ReadFile(inFile)
 	if err != nil {
@@ -77,7 +77,6 @@ mapF func(file string, contents string) []KeyValue,
 			log.Fatal("do map encoders ",err)
 		}
 	}
-
 }
 ```
 
@@ -87,15 +86,14 @@ mapF func(file string, contents string) []KeyValue,
 2. 按照读取相同文件中的 Key 进新按照字典顺序进行排序；
 3. 遍历读取的 KeyValue，并且调用用户的 Reduce 方法，将计算的结果继续写入到文件中；
 
-
 ``` go
-    func doReduce(
+func doReduce(
 	jobName string, // the name of the whole MapReduce job
 	reduceTaskNumber int, // which reduce task this is
 	nMap int, // the number of map tasks that were run ("M" in the paper)
 	reduceF func(key string, values []string) string,
 ) {
-	
+
 	// file.Close()
 
 	//setp 1,read map generator file ,same key merge put map[string][]string
@@ -133,7 +131,6 @@ mapF func(file string, contents string) []KeyValue,
 		keys = append(keys, k)
 	}
 
-
 	//setp 2 sort by keys
 	sort.Strings(keys)
 
@@ -153,7 +150,6 @@ mapF func(file string, contents string) []KeyValue,
 
 	file.Close()
 }
-
 ```
 
 &emsp;&emsp;Merge 过程
@@ -205,10 +201,9 @@ func (mr *Master) schedule(phase jobPhase) {
 	}
 	fmt.Printf("Schedule: %v phase done\n", phase)
 }
-
 ```
 
-## 到站了 
+## 到站
 
 - 运行测试:
 
@@ -218,20 +213,6 @@ func (mr *Master) schedule(phase jobPhase) {
 
 ![测试结果](img/check.png)
 
-
 - 测试倒排结果:
 
 ![倒排索引结果](img/ii.png)
-
-
-
-
-
-
-
-
-
-
-
-
-
