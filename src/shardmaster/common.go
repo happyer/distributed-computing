@@ -47,7 +47,6 @@ type Err string
 type JoinArgs struct {
 	GID     int      // unique replica group ID
 	Servers []string // group server ports
-					 // add by Yang
 	ClientId	int64
 	RequestId	int
 }
@@ -59,7 +58,6 @@ type JoinReply struct {
 
 type LeaveArgs struct {
 	GID int
-	// add by Yang
 	ClientId	int64
 	RequestId	int
 }
@@ -72,7 +70,6 @@ type LeaveReply struct {
 type MoveArgs struct {
 	Shard int
 	GID   int
-	// add by Yang
 	ClientId	int64
 	RequestId	int
 }
@@ -84,7 +81,6 @@ type MoveReply struct {
 
 type QueryArgs struct {
 	Num int // desired config number
-			// add by Yang
 	ClientId	int64
 	RequestId	int
 }

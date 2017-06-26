@@ -243,7 +243,6 @@ func StartServer(servers []*labrpc.ClientEnd, me int, persister *raft.Persister)
 
 	return sm
 }
-/*-----------------------Add By Yang--------------------------*/
 
 // receive command form raft to update database
 func (sm *ShardMaster) Update() {
@@ -308,7 +307,6 @@ func (sm *ShardMaster) GetShardByGid(cfg Config, gid int) int {
 	}
 	return -1
 }
-/*------------------ Apply requets --------------------*/
 func (sm *ShardMaster) Apply(request Op, isDuplicated bool) interface{} {
 	sm.mu.Lock()
 	defer sm.mu.Unlock()
@@ -450,7 +448,6 @@ func (sm *ShardMaster) ApplyMove(args MoveArgs) {
 	cfg.Shards[args.Shard] = args.GID
 }
 
-/*------------- Detect duplicated and send result ----------------*/
 func (sm *ShardMaster) SendResult(index int, result Result) {
 	sm.mu.Lock()
 	defer sm.mu.Unlock()
