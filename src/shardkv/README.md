@@ -23,7 +23,11 @@ sharemaster 主要负责根据client 提供的分区规则，将数据储存在�
 每一个 group 由多台机器组成，他们之间也是通过raft 协议来保证一致性。
 
 在实现分布式数据之中为了简单起见，将数据直接放入到一个map 之中，这里只是想告诉你整个流程是这样的。
-持续更行之中，后续吧lsm 融入进来。
+持续更行之中，后续吧lsm 融入进来。[源码注释地址](https://github.com/happyer/distributed-computing)。
+
+
+![公众号](../../img/qc.png)
+
 
 
 
