@@ -8,4 +8,4 @@
 
 
 希望对你有帮助，你的支持是我的动力
-![](alipay.png)
+![](https://github.com/happyer/distributed-computing/blob/master/img/alipay.JPG)
